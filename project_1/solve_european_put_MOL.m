@@ -34,12 +34,12 @@ function [S, tau, U_all] = solve_european_put_MOL(r, sigma, K, T, Smax, Ns, Nt)
         U(1) = bc_low(t);
         U(end) = bc_high(t);
         
-        k1 = F(U, t);
-        k2 = F(U + 0.5*dt*k1, t + 0.5*dt);
-        k3 = F(U + 0.5*dt*k2, t + 0.5*dt);
-        k4 = F(U + dt*k3, t + dt);
+        k1 = dt*F(U, t);
+        k2 = dt*F(U + 0.5*k1, t + 0.5*dt);
+        k3 = dt*F(U + 0.5*k2, t + 0.5*dt);
+        k4 = dt*F(U + dt*k3, t + dt);
         
-        U = U + dt/6 * (k1 + 2*k2 + 2*k3 + k4);
+        U = U + 1/6 * (k1 + 2*k2 + 2*k3 + k4);
         U(1) = bc_low(t + dt);
         U(end) = bc_high(t + dt);
         U_all(:,n+1) = U;
