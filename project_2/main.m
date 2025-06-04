@@ -5,13 +5,13 @@ if ~exist('output', 'dir')
     mkdir('output');
 end
 
-%% Task 1: Random number generators
-fprintf('--- Running Random Generators ---\n');
-random_generators();
+% %% Task 1: Random number generators
+% fprintf('--- Running Random Generators ---\n');
+% random_generators();
 
-%% Task 2: Estimate Mandelbrot area using MC and QMC
-fprintf('\n--- Estimating Mandelbrot Area ---\n');
-estimate_mandelbrot_area();
+% %% Task 2: Estimate Mandelbrot area using MC and QMC
+% fprintf('\n--- Estimating Mandelbrot Area ---\n');
+% estimate_mandelbrot_area();
 
 %% Task 3: Solve SDE using Euler-Maruyama and Milstein methods
 fprintf('\n--- Solving SDE using Euler-Maruyama and Milstein ---\n');
@@ -28,17 +28,22 @@ N = 1000;     % Number of time steps
 [t, X_em, X_milstein] = sde_solver(a, b, dbdx, x0, T, N);
 
 % Plot the solutions
-figure;
-plot(t, X_em, 'b-', 'DisplayName', 'Euler-Maruyama'); hold on;
+fig = figure;
+hold on;
+plot(t, X_em, 'b-', 'DisplayName', 'Euler-Maruyama');
 plot(t, X_milstein, 'r--', 'DisplayName', 'Milstein');
 xlabel('t'); ylabel('X(t)');
 title('SDE Solution: Euler-Maruyama vs Milstein');
 legend show;
 grid on;
+hold off;
 
-%% Task 4: Convergence analysis of SDE solvers
-fprintf('\n--- Task 4(a): Plot Single Path ---\n');
-task4a_single_simulation();
+% Save the plot
+saveas(fig, fullfile('output', 'sde_solution.png'));
 
-fprintf('\n--- Task 4(b): Run Convergence Study (500k paths) ---\n');
-task4b_convergence_analysis();
+% %% Task 4: Convergence analysis of SDE solvers
+% fprintf('\n--- Task 4(a): Plot Single Path ---\n');
+% task4a_single_simulation();
+
+% fprintf('\n--- Task 4(b): Run Convergence Study (500k paths) ---\n');
+% task4b_convergence_analysis();
